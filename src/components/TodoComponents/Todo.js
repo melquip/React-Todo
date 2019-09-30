@@ -5,10 +5,10 @@ export default class Todo extends React.Component {
 		const todo = this.props.data;
 		return (
 			<div 
-				className={`task task_${todo.id}${todo.completed && ' complete'}`}
+				className={`task task_${todo.id}${todo.completed && ' completed'}`}
 				onClick={this.props.toggleComplete(todo.id)}
 			>
-				{todo.task} is {!todo.completed && 'not '}complete;
+				"<span>{todo.task}</span>" is {!todo.completed && 'not '}complete!
 			</div>
 		);
 	}
