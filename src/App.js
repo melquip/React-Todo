@@ -1,4 +1,5 @@
 import React from 'react';
+import './components/TodoComponents/Todo.css';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
@@ -11,7 +12,6 @@ export default class App extends React.Component {
 		this.state = {
 			todo: "",
 			todos: [],
-			completed: []
 		}
 	}
 	toggleComplete = (id) => {
@@ -20,29 +20,30 @@ export default class App extends React.Component {
 				todos: currentState.todos.map(todo => {
 					if (todo.id !== id) return todo;
 					return { ...todo, completed: !todo.completed }
-				}),
-				completed: [...currentState.todos, id]
-			}))
+				})
+			}));
 		});
 	}
 	removeTodos = () => {
 		this.setState(currentState => ({
-			todos: currentState.todos.filter(todo => currentState.completed.includes(todo.id)),
-			completed: []
+			todos: currentState.todos.filter(todo => !todo.completed),
 		}))
 	}
 	addTodo = () => {
-		this.setState(currentState => ({
-			todos: [
-				...currentState.todos,
-				{
-					id: Date.now(),
-					task: currentState.todo,
-					completed: false
-				}
-			],
-			todo: ""
-		}));
+		this.setState(currentState => {
+			if (!currentState.todo) return false;
+			return {
+				todos: [
+					...currentState.todos,
+					{
+						id: Date.now(),
+						task: currentState.todo,
+						completed: false
+					}
+				],
+				todo: ""
+			}
+		});
 	}
 	todoOnChange = (e) => {
 		this.setState({
@@ -51,8 +52,8 @@ export default class App extends React.Component {
 	}
 	render() {
 		return (<>
-			<TodoList 
-				data={this.state.todos} 
+			<TodoList
+				data={this.state.todos}
 				toggleComplete={this.toggleComplete}
 			/>
 			<TodoForm
