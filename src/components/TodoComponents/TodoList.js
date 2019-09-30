@@ -4,16 +4,17 @@ import Todo from './Todo';
 // feel free to change this component.js into TodoList.js
 export default class TodoList extends React.Component {
 	render() {
+		const todos = this.props.data;
 		return (
 			<div className="todolist">
 				<h1>Todo List</h1>
 				{
-					this.props.data.map(todo =>
+					todos.length > 0 ? todos.map(todo =>
 						<Todo
 							key={todo.id}
 							data={todo}
 							toggleComplete={this.props.toggleComplete}
-						/>)
+						/>) : null
 				}
 			</div>
 		);

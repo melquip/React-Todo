@@ -27,3 +27,8 @@ input, button {
 .task.completed {
 	background-color:rgba(72, 139, 161, 1);
 }
+
+label {
+	display: block; 
+	margin-top: 20px;
+}
